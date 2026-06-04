@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blood Donation Camp – Register</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&family=DM+Serif+Display&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css">
+    <header>
+  <div class="drop">🩸</div>
+  <h1>Blood Donation Camp</h1>
+  <p>Register below — your one donation can save up to three lives.</p>
+</header>
+
+
+<main id="form-section">
+  <div class="card">
+
+    
+    <div class="form-group">
+      <label for="fullname">Full Name</label>
+      <input type="text" id="fullname" maxlength="50" placeholder="e.g. Rahul Sharma"/>
+      <p class="err-msg" id="err-fullname">Full name is required (max 50 characters).</p>
+    </div>
+
+    
+    <div class="form-group">
+      <label for="collegeid">College ID</label>
+      <input type="text" id="collegeid" maxlength="11" placeholder="11-digit numeric ID"/>
+      <p class="err-msg" id="err-collegeid">College ID must be exactly 11 numeric digits.</p>
+    </div>
+
+   
+    <div class="form-group">
+      <label for="course">Course Name</label>
+      <input type="text" id="course" placeholder="e.g. BCA"/>
+      <p class="err-msg" id="err-course">Please enter your course name.</p>
+    </div>
+
+    <div class="form-group">
+      <label>Gender</label>
+      <div class="radio-group" id="gender-group">
+        <label><input type="radio" name="gender" value="Male"> Male</label>
+        <label><input type="radio" name="gender" value="Female"> Female</label>
+        <label><input type="radio" name="gender" value="Other"> Other</label>
+      </div>
+      <p class="err-msg" id="err-gender">Please select your gender.</p>
+    </div>
+
+   
+    <div class="form-group">
+      <label for="dob">Date of Birth</label>
+      <input type="date" id="dob" max="2008-01-01"/>
+      <p class="err-msg" id="err-dob">Date of birth must be on or before 1 January 2008.</p>
+    </div>
+
+   
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input type="email" id="email" placeholder="you@nshm.edu.in"/>
+      <p class="err-msg" id="err-email">Please enter a valid email address.</p>
+    </div>
+
+   
+    <div class="form-group">
+      <label for="mobile">Mobile Number</label>
+      <input type="tel" id="mobile" maxlength="10" placeholder="10-digit number"/>
+      <p class="err-msg" id="err-mobile">Mobile number must be exactly 10 digits.</p>
+    </div>
+
+   
+    <div class="form-group">
+      <label>Medical Issues Present?</label>
+      <div class="yn-group">
+        <input type="radio" name="medical" id="med-yes" value="yes"/>
+        <label for="med-yes">Yes</label>
+        <input type="radio" name="medical" id="med-no" value="no"/>
+        <label for="med-no">No</label>
+      </div>
+      <p class="err-msg" id="err-medical">Please indicate if you have any medical issues.</p>
+    </div>
+
+    <button class="btn-submit" onclick="submitForm()">Register Now →</button>
+  </div>
+</main>
+
+
+<div id="success-page" style="display:none; flex:1; align-items:center; justify-content:center; padding:60px 20px;">
+  <div class="success-card">
+    <div class="success-icon">✅</div>
+    <h2>You're Registered!</h2>
+    <p>Thank you for signing up for the Blood Donation Camp.<br>
+       Your contribution matters — we will get in touch with you shortly.</p>
+    <span class="tag">Registration Successful</span><br/>
+    <button class="btn-back" onclick="goBack()">← Register Another</button>
+  </div>
+</div>
+
+
+<footer>Blood Donation Camp &nbsp;·&nbsp; Every drop counts 🩸</footer>
+<script src="script.js"></script>
+</body>
+</html>

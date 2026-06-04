@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blood Donation Camp – Register</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&family=DM+Serif+Display&display=swap" rel="stylesheet"/>
+  <style>
+    /* ─── VARIABLES ─────────────────────────────────────────── */
+    :root {
+      --red:      #d32f2f;
+      --red-dark: #9a0007;
+      --red-soft: #fdecea;
+      --bg:       #fff8f8;
+      --card:     #ffffff;
+      --text:     #1a1a1a;
+      --muted:    #7a7a7a;
+      --border:   #e0d5d5;
+      --green:    #2e7d32;
+      --green-bg: #f0faf0;
+    }
+
+    /* ─── RESET ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ─── HEADER ─────────────────────────────────────────────── */
+    header {
+      background: linear-gradient(135deg, var(--red-dark), var(--red));
+      color: #fff;
+      text-align: center;
+      padding: 44px 24px 36px;
+    }
+    header .drop {
+      font-size: 2.8rem;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+    header h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.7rem, 5vw, 2.8rem);
+      font-weight: 400;
+      letter-spacing: -0.5px;
+    }
+    header p {
+      margin-top: 10px;
+      font-size: 0.95rem;
+      opacity: 0.85;
+      font-weight: 300;
+    }
+
+    /* ─── MAIN / FORM CARD ───────────────────────────────────── */
+    main {
+      flex: 1;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 50px 20px 60px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 20px;
+      box-shadow: 0 12px 50px rgba(211,47,47,0.10);
+      padding: 44px 48px;
+      width: 100%;
+      max-width: 600px;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── FORM GROUPS ────────────────────────────────────────── */
+    .form-group {
+      margin-bottom: 22px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--red-dark);
+      margin-bottom: 7px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"],
+    select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.97rem;
+      color: var(--text);
+      background: #fff;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--red);
+      box-shadow: 0 0 0 3px rgba(211,47,47,0.12);
+    }
+
+    /* error state */
+    input.error, select.error {
+      border-color: #e53935;
+      background: #fff5f5;
+    }
+
+    .err-msg {
+      font-size: 0.78rem;
+      color: #c62828;
+      margin-top: 5px;
+      display: none;
+    }
+    .err-msg.show { display: block; }
+
+    /* ─── RADIO BUTTONS (Gender) ─────────────────────────────── */
+    .radio-group {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .radio-group label {
+      text-transform: none;
+      letter-spacing: 0;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      cursor: pointer;
+    }
+
+    .radio-group input[type="radio"] {
+      accent-color: var(--red);
+      width: 17px; height: 17px;
+      cursor: pointer;
+    }
+
+    /* ─── MEDICAL ISSUES (Yes/No) ────────────────────────────── */
+    .yn-group { display: flex; gap: 12px; }
+
+    .yn-group label {
+      flex: 1;
+      text-align: center;
+      padding: 10px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-transform: none;
+      letter-spacing: 0;
+      color: var(--text);
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .yn-group input[type="radio"] { display: none; }
+
+    .yn-group input[type="radio"]:checked + label {
+      background: var(--red-soft);
+      border-color: var(--red);
+      color: var(--red-dark);
+      font-weight: 700;
+    }
+
+    /* ─── SUBMIT BUTTON ──────────────────────────────────────── */
+    .btn-submit {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, var(--red-dark), var(--red));
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(211,47,47,0.35);
+    }
+    .btn-submit:active { transform: translateY(0); }
+
+    /* ─── SUCCESS PAGE ───────────────────────────────────────── */
+    #success-page {
+      display: none;
+      flex: 1;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+    }
+
+    .success-card {
+      background: var(--card);
+      border-radius: 20px;
+      padding: 56px 48px;
+      text-align: center;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 12px 50px rgba(46,125,50,0.12);
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .success-icon { font-size: 4rem; margin-bottom: 18px; }
+
+    .success-card h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem;
+      color: var(--green);
+      margin-bottom: 12px;
+    }
+
+    .success-card p {
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    .success-card .tag {
+      display: inline-block;
+      background: var(--green-bg);
+      color: var(--green);
+      border: 1px solid #a5d6a7;
+      border-radius: 30px;
+      padding: 6px 18px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .btn-back {
+      display: inline-block;
+      margin-top: 28px;
+      padding: 12px 28px;
+      border: 1.5px solid var(--red);
+      color: var(--red);
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-back:hover { background: var(--red); color: #fff; }
+
+    /* ─── FOOTER ─────────────────────────────────────────────── */
+    footer {
+      text-align: center;
+      padding: 22px;
+      font-size: 0.78rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════ HEADER ══════════ -->
+<header>
+  <div class="drop">🩸</div>
+  <h1>Blood Donation Camp</h1>
+  <p>Register below — your one donation can save up to three lives.</p>
+</header>
+
+<!-- ══════════ REGISTRATION FORM ══════════ -->
+<main id="form-section">
+  <div class="card">
+
+    <!-- Full Name -->
+    <div class="form-group">
+      <label for="fullname">Full Name</label>
+      <input type="text" id="fullname" maxlength="50" placeholder="e.g. Rahul Sharma"/>
+      <p class="err-msg" id="err-fullname">Full name is required (max 50 characters).</p>
+    </div>
+
+    <!-- College ID -->
+    <div class="form-group">
+      <label for="collegeid">College ID</label>
+      <input type="text" id="collegeid" maxlength="11" placeholder="11-digit numeric ID"/>
+      <p class="err-msg" id="err-collegeid">College ID must be exactly 11 numeric digits.</p>
+    </div>
+
+    <!-- Course Name -->
+    <div class="form-group">
+      <label for="course">Course Name</label>
+      <input type="text" id="course" placeholder="e.g. B.Tech Computer Science"/>
+      <p class="err-msg" id="err-course">Please enter your course name.</p>
+    </div>
+
+    <!-- Gender (radio) -->
+    <div class="form-group">
+      <label>Gender</label>
+      <div class="radio-group" id="gender-group">
+        <label><input type="radio" name="gender" value="Male"> Male</label>
+        <label><input type="radio" name="gender" value="Female"> Female</label>
+        <label><input type="radio" name="gender" value="Other"> Other</label>
+      </div>
+      <p class="err-msg" id="err-gender">Please select your gender.</p>
+    </div>
+
+    <!-- Date of Birth -->
+    <div class="form-group">
+      <label for="dob">Date of Birth</label>
+      <input type="date" id="dob" max="2008-01-01"/>
+      <p class="err-msg" id="err-dob">Date of birth must be on or before 1 January 2008.</p>
+    </div>
+
+    <!-- Email -->
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input type="email" id="email" placeholder="you@example.com"/>
+      <p class="err-msg" id="err-email">Please enter a valid email address.</p>
+    </div>
+
+    <!-- Mobile -->
+    <div class="form-group">
+      <label for="mobile">Mobile Number</label>
+      <input type="tel" id="mobile" maxlength="10" placeholder="10-digit number"/>
+      <p class="err-msg" id="err-mobile">Mobile number must be exactly 10 digits.</p>
+    </div>
+
+    <!-- Medical Issues -->
+    <div class="form-group">
+      <label>Medical Issues Present?</label>
+      <div class="yn-group">
+        <input type="radio" name="medical" id="med-yes" value="yes"/>
+        <label for="med-yes">Yes</label>
+        <input type="radio" name="medical" id="med-no" value="no"/>
+        <label for="med-no">No</label>
+      </div>
+      <p class="err-msg" id="err-medical">Please indicate if you have any medical issues.</p>
+    </div>
+
+    <button class="btn-submit" onclick="submitForm()">Register Now →</button>
+  </div>
+</main>
+
+<!-- ══════════ SUCCESS PAGE ══════════ -->
+<div id="success-page" style="display:none; flex:1; align-items:center; justify-content:center; padding:60px 20px;">
+  <div class="success-card">
+    <div class="success-icon">✅</div>
+    <h2>You're Registered!</h2>
+    <p>Thank you for signing up for the Blood Donation Camp.<br>
+       Your contribution matters — we will get in touch with you shortly.</p>
+    <span class="tag">Registration Successful</span><br/>
+    <button class="btn-back" onclick="goBack()">← Register Another</button>
+  </div>
+</div>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>Blood Donation Camp &nbsp;·&nbsp; Every drop counts 🩸</footer>
+
+<!-- ══════════ JAVASCRIPT VALIDATION ══════════ -->
+<script>
+  /* ── Helper: show / hide error ── */
+  function setError(id, show) {
+    const input = document.getElementById(id);
+    const msg   = document.getElementById('err-' + id);
+    if (input)  input.classList.toggle('error', show);
+    if (msg)    msg.classList.toggle('show', show);
+    return !show;   // returns true = valid
+  }
+
+  /* ── Main validation function ── */
+  function submitForm() {
+    let valid = true;
+
+    /* 1. Full Name — required, max 50 chars */
+    const name = document.getElementById('fullname').value.trim();
+    valid &= setError('fullname', name === '' || name.length > 50);
+
+    /* 2. College ID — exactly 11 numeric digits */
+    const cid  = document.getElementById('collegeid').value.trim();
+    valid &= setError('collegeid', !/^\d{11}$/.test(cid));
+
+    /* 3. Course Name — required */
+    const course = document.getElementById('course').value.trim();
+    valid &= setError('course', course === '');
+
+    /* 4. Gender — a radio must be selected */
+    const gender = document.querySelector('input[name="gender"]:checked');
+    const genderEl = document.getElementById('gender-group');
+    const errGender = document.getElementById('err-gender');
+    if (!gender) {
+      errGender.classList.add('show');
+      valid = false;
+    } else {
+      errGender.classList.remove('show');
+    }
+
+    /* 5. Date of Birth — must be ≤ 1 Jan 2008 */
+    const dob  = document.getElementById('dob').value;
+    const dobOk = dob !== '' && new Date(dob) <= new Date('2008-01-01');
+    valid &= setError('dob', !dobOk);
+
+    /* 6. Email — basic format check */
+    const email = document.getElementById('email').value.trim();
+    valid &= setError('email', !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email));
+
+    /* 7. Mobile — exactly 10 digits */
+    const mob  = document.getElementById('mobile').value.trim();
+    valid &= setError('mobile', !/^\d{10}$/.test(mob));
+
+    /* 8. Medical Issues — yes or no must be chosen */
+    const medical = document.querySelector('input[name="medical"]:checked');
+    valid &= setError('medical', !medical);
+
+    /* If all valid → show success page */
+    if (valid) showSuccess();
+  }
+
+  /* ── Show success ── */
+  function showSuccess() {
+    document.getElementById('form-section').style.display = 'none';
+    const sp = document.getElementById('success-page');
+    sp.style.display = 'flex';
+  }
+
+  /* ── Go back & reset ── */
+  function goBack() {
+    document.getElementById('success-page').style.display = 'none';
+    document.getElementById('form-section').style.display = 'flex';
+
+    /* clear all inputs */
+    document.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], input[type="date"]')
+      .forEach(el => el.value = '');
+    document.querySelectorAll('input[type="radio"]')
+      .forEach(el => el.checked = false);
+    document.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
+    document.querySelectorAll('.err-msg.show').forEach(el => el.classList.remove('show'));
+  }
+</script>
+
+</body>
+</html>
